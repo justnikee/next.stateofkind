@@ -7,7 +7,7 @@ import { RootState } from '@/store/store';
 type Props = {}
 
 const leftSideLinks = [
-    { name: 'Shop', link: '#' },
+    { name: 'Shop', link: '/pages/skincare' },
     { name: 'Our Philosophy', link: '#' },
     { name: 'FAQ', link: '#' },
     { name: 'Learn', link: '#' }

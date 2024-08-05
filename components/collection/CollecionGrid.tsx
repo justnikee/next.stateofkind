@@ -2,48 +2,42 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Products, CartItem } from '@/app/types/cart'; // Ensure this import is correct
+import { Products, CartItem } from '@/app/types/cart';
 import { useDispatch } from 'react-redux';
-import { addItemToCart } from '@/store/slices/CartSlice'; // Ensure this import is correct
+import { addItemToCart } from '@/store/slices/CartSlice';
 
 interface CollecionGridProps {
     products: Products[];
 }
 
 const CollecionGrid: React.FC<CollecionGridProps> = ({ products }) => {
-    const [quantities, setQuantities] = useState<Record<string, number>>({}); // State for quantities
+    const [quantities, setQuantities] = useState<Record<string, number>>({});
     const dispatch = useDispatch();
 
-    // Initialize quantity for a specific product
     const getQuantity = (productId: string) => {
-        return quantities[productId] || 1; // Default to 1 if not set
+        return quantities[productId] || 1;
+    };
+
+    const handleQuantityChange = (productId: string, amount: number) => {
+        setQuantities(prev => ({
+            ...prev,
+            [productId]: Math.max((prev[productId] || 1) + amount, 1)
+        }));
     };
 
     const handleAddToCart = (product: Products) => {
+        const quantity = getQuantity(product.id);
+        console.log(quantity);
         const cartItem: CartItem = {
             id: `${product.id}-${Date.now()}`,
             productId: product.id,
             name: product.name,
-            quantity: getQuantity(product.id),
+            quantity: quantity,
             price: product.price,
-            totalPrice: product.price * getQuantity(product.id),
+            totalPrice: product.price * quantity,
             productImage: product.imageUrl,
         };
         dispatch(addItemToCart(cartItem));
-    };
-
-    const handleMinus = (productId: string) => {
-        setQuantities(prev => ({
-            ...prev,
-            [productId]: Math.max((prev[productId] || 1) - 1, 1) // Ensure quantity doesn't go below 1
-        }));
-    };
-
-    const handlePlus = (productId: string) => {
-        setQuantities(prev => ({
-            ...prev,
-            [productId]: (prev[productId] || 1) + 1
-        }));
     };
 
     return (
@@ -69,37 +63,32 @@ const CollecionGrid: React.FC<CollecionGridProps> = ({ products }) => {
                             </div>
                             <div className='flex justify-between gap-5'>
                                 <div className="quantity-selector w-[30%] h-fit relative">
-                                    <input
-                                        type="number"
-                                        name="quantity"
-                                        id={`ProductTileQuickAdd-Quantity-${product.id}`}
-                                        value={getQuantity(product.id)}
-                                        min="1"
-                                        max="100"
-                                        pattern="[0-9]*"
-                                        readOnly
-                                        className="quantity-selector__input border border-[#393939] h-10 px-3 py-2 rounded w-full text-center"
-                                        style={{
-                                            border: '1px solid #393939',
-                                            height: '2.5rem', // Adjust height as needed
-                                            padding: '0 0.75rem', // Adjust padding as needed
-                                            borderRadius: '0.25rem',
-                                            width: '100%', // Make sure the width is appropriate
-                                            textAlign: 'center', // Horizontally center the text
-                                            boxSizing: 'border-box', // Ensure padding is included in width/height
-                                        }}
-                                    />
                                     <button
-                                        onClick={() => handleMinus(product.id)}
+                                        onClick={() => handleQuantityChange(product.id, -1)}
                                         type="button"
-                                        className="flex items-center text-[#393939] h-full justify-center p-0 absolute top-1/2 transform -translate-y-1/2 w-[1.875rem] right-0"
+                                        className="flex items-center text-[#393939] h-full justify-center p-0 absolute top-1/2 transform -translate-y-1/2 w-[1.875rem] left-0"
                                     >
                                         <span className="icon icon--minus">-</span>
                                     </button>
+                                    <input
+                                        type="text"
+                                        readOnly
+                                        value={getQuantity(product.id)}
+                                        className="quantity-selector__input border border-[#393939] h-10 px-3 py-2 rounded w-full text-center"
+                                        style={{
+                                            border: '1px solid #393939',
+                                            height: '2.5rem',
+                                            padding: '0 0.75rem',
+                                            borderRadius: '0.25rem',
+                                            width: '100%',
+                                            textAlign: 'center',
+                                            boxSizing: 'border-box',
+                                        }}
+                                    />
                                     <button
-                                        onClick={() => handlePlus(product.id)}
+                                        onClick={() => handleQuantityChange(product.id, 1)}
                                         type="button"
-                                        className="flex items-center text-[#393939] h-full justify-center p-0 absolute top-1/2 transform -translate-y-1/2 w-[1.875rem]"
+                                        className="flex items-center text-[#393939] h-full justify-center p-0 absolute top-1/2 transform -translate-y-1/2 w-[1.875rem] right-0"
                                     >
                                         <span className="icon icon--plus">+</span>
                                     </button>

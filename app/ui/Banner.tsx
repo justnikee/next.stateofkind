@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import bannerImage from '@/public/Hero Images/hero.webp'
+import Link from 'next/link'
 
 type Props = {}
 
@@ -13,7 +14,7 @@ const Banner = (props: Props) => {
             Multi-benefit, organic skincare. Made in California.<br/>
             Gentler to skin and our planet — the antidote to <br/> lengthy skincare routines.
            </p>
-           <a className='bg-slate-800 border-1 border-black px-5 py-3 mt-3 text-sm uppercase text-yellow-100 w-fit' href='/pages/skincare'>Shop Now</a>
+           <Link className='bg-slate-800 border-1 border-black px-5 py-3 mt-3 text-sm uppercase text-yellow-100 w-fit' href='/pages/skincare'>Shop Now</Link>
         </div>
         <Image className='absolute top-0 left-0 h-full w-full' src={bannerImage} alt='banner Image' />
     </div>

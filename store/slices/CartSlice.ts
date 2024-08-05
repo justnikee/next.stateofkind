@@ -1,5 +1,6 @@
 import { CartItem, CartState } from "@/app/types/cart";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import toast from "react-hot-toast"
 
 
 // 1> initial state
@@ -23,7 +24,7 @@ const cartSlice = createSlice({
         if(!existingItem){
             state.cartItems.push({
                 ...newItem,
-                quantity: 1,
+                quantity: newItem.quantity,
                 totalPrice: newItem.price
             })
         }else{
@@ -32,10 +33,14 @@ const cartSlice = createSlice({
         }
         state.totalAmount += newItem.price;
 
+        state.totalQuantity = state.cartItems.reduce((total , item) => total + item.quantity, 0)
+
 
         localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
         localStorage.setItem('totalAmount', JSON.stringify(state.totalAmount));
         localStorage.setItem('totalQuantity', JSON.stringify(state.totalQuantity));
+
+        toast.success(`${newItem.name} with ${newItem.quantity} Qty. added to Cart!`)
     },
     removeItemFromCart: (state, action: PayloadAction<string>) => {
         const id = action.payload;

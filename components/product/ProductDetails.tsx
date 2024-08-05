@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { addItemToCart } from '@/store/slices/CartSlice';
 import { Product, CartItem } from '@/app/types/cart';
 import React from 'react';
+import { Toaster } from 'react-hot-toast';
 
 
 
@@ -34,6 +35,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 
   return (
     <div>
+      <Toaster/>
       <div className='grid grid-cols-2 max-w-screen-2xl px-8'>
         <div>
           <Image
