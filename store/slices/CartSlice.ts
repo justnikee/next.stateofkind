@@ -5,9 +5,9 @@ import toast from "react-hot-toast"
 
 // 1> initial state
 const initialState: CartState = {
-    cartItems: JSON.parse(localStorage.getItem('cartItems') || '[]'),
-    totalQuantity: JSON.parse(localStorage.getItem('totalQuantity') || '0'),
-    totalAmount: JSON.parse(localStorage.getItem('totalAmount') || '0'),
+    cartItems: JSON.parse(sessionStorage.getItem('cartItems') || '[]'),
+    totalQuantity: JSON.parse(sessionStorage.getItem('totalQuantity') || '0'),
+    totalAmount: JSON.parse(sessionStorage.getItem('totalAmount') || '0'),
 }
 
 
@@ -36,9 +36,9 @@ const cartSlice = createSlice({
         state.totalQuantity = state.cartItems.reduce((total , item) => total + item.quantity, 0)
 
 
-        localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
-        localStorage.setItem('totalAmount', JSON.stringify(state.totalAmount));
-        localStorage.setItem('totalQuantity', JSON.stringify(state.totalQuantity));
+        sessionStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+        sessionStorage.setItem('totalAmount', JSON.stringify(state.totalAmount));
+        sessionStorage.setItem('totalQuantity', JSON.stringify(state.totalQuantity));
 
         toast.success(`${newItem.name} with ${newItem.quantity} Qty. added to Cart!`)
     },
@@ -61,11 +61,11 @@ const cartSlice = createSlice({
             // Update total quantity
             state.totalQuantity = state.cartItems.reduce((total, item) => total + item.quantity, 0);
     
-            // Save updated state to localStorage
+            // Save updated state to sessionStorage
             if (typeof window !== 'undefined') {
-                localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
-                localStorage.setItem('totalAmount', JSON.stringify(state.totalAmount));
-                localStorage.setItem('totalQuantity', JSON.stringify(state.totalQuantity));
+                sessionStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+                sessionStorage.setItem('totalAmount', JSON.stringify(state.totalAmount));
+                sessionStorage.setItem('totalQuantity', JSON.stringify(state.totalQuantity));
             }
         }
     },
@@ -75,9 +75,9 @@ const cartSlice = createSlice({
         state.totalQuantity = 0
 
 
-        localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
-        localStorage.setItem('totalAmount', JSON.stringify(state.totalAmount));
-        localStorage.setItem('totalQuantity', JSON.stringify(state.totalQuantity));
+        sessionStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+        sessionStorage.setItem('totalAmount', JSON.stringify(state.totalAmount));
+        sessionStorage.setItem('totalQuantity', JSON.stringify(state.totalQuantity));
     }
     }
 })

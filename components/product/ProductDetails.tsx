@@ -36,7 +36,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   return (
     <div>
       <Toaster/>
-      <div className='grid grid-cols-2 max-w-screen-2xl px-8'>
+      <div className='grid m-auto grid-cols-2 max-w-screen-2xl px-8'>
         <div>
           <Image
             height={600}
