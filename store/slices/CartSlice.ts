@@ -3,12 +3,21 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import toast from "react-hot-toast"
 
 
+
+const getSessionStorage = (key: string, defaultValue: any) => {
+    if (typeof window !== "undefined") {
+        const storedValue = sessionStorage.getItem(key);
+        return storedValue ? JSON.parse(storedValue) : defaultValue;
+    }
+    return defaultValue;
+};
+
 // 1> initial state
 const initialState: CartState = {
-    cartItems: JSON.parse(sessionStorage.getItem('cartItems') || '[]'),
-    totalQuantity: JSON.parse(sessionStorage.getItem('totalQuantity') || '0'),
-    totalAmount: JSON.parse(sessionStorage.getItem('totalAmount') || '0'),
-}
+    cartItems: getSessionStorage("cartItems", []),
+    totalQuantity: getSessionStorage("totalQuantity", 0),
+    totalAmount: getSessionStorage("totalAmount", 0),
+};
 
 
 // 2> createSlice
@@ -20,20 +29,21 @@ const cartSlice = createSlice({
         const newItem = action.payload;
         // existing item 
         const existingItem = state.cartItems.find(item => item.productId === newItem.productId);
-        state.totalQuantity++;
-        if(!existingItem){
+
+
+        if (!existingItem) {
             state.cartItems.push({
                 ...newItem,
                 quantity: newItem.quantity,
-                totalPrice: newItem.price
-            })
-        }else{
-            existingItem.quantity++;
-            existingItem.price += newItem.price
+                totalPrice: newItem.price * newItem.quantity // ✅ Fix total price calculation
+            });
+        } else {
+            existingItem.quantity += newItem.quantity; // ✅ Increase quantity correctly
+            existingItem.totalPrice += newItem.price * newItem.quantity; // ✅ Update total price correctly
         }
-        state.totalAmount += newItem.price;
 
-        state.totalQuantity = state.cartItems.reduce((total , item) => total + item.quantity, 0)
+        state.totalAmount = state.cartItems.reduce((total, item) => total + item.totalPrice, 0);
+        state.totalQuantity = state.cartItems.reduce((total, item) => total + item.quantity, 0);
 
 
         sessionStorage.setItem('cartItems', JSON.stringify(state.cartItems));
@@ -48,17 +58,14 @@ const cartSlice = createSlice({
     
         if (existingItem) {
             if (existingItem.quantity > 1) {
-                // Decrease the quantity and update the total price
                 existingItem.quantity--;
-                existingItem.totalPrice -= existingItem.price;
-                state.totalAmount -= existingItem.price;
+                existingItem.totalPrice -= existingItem.price; // ✅ Deduct based on single unit price
             } else {
-                // Remove item from cart if quantity is 1
                 state.cartItems = state.cartItems.filter(item => item.id !== id);
-                state.totalAmount -= existingItem.totalPrice;
             }
     
-            // Update total quantity
+            // Recalculate total amount and quantity
+            state.totalAmount = state.cartItems.reduce((total, item) => total + item.totalPrice, 0);
             state.totalQuantity = state.cartItems.reduce((total, item) => total + item.quantity, 0);
     
             // Save updated state to sessionStorage
