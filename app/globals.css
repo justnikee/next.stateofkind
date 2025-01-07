@@ -97,3 +97,35 @@
   padding: 0 40px;
   margin: 0 auto;
 }
+
+
+@font-face {
+  font-family: 'SpaceMono-reg';
+  src: url('../public/Fonts/SpaceMono-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Bold */
+@font-face {
+  font-family: 'SpaceMono-bold';
+  src: url('../public/Fonts/SpaceMono-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* Italic */
+@font-face {
+  font-family: 'SpaceMono-italic';
+  src: url('../public/Fonts/SpaceMono-Italic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: italic;
+}
+
+/* Bold Italic */
+@font-face {
+  font-family: 'SpaceMono-bold-italic';
+  src: url('../public/Fonts/SpaceMono-BoldItalic.woff2') format('woff2');
+  font-weight: bold;
+  font-style: italic;
+}
