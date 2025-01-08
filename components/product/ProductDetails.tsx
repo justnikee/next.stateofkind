@@ -28,7 +28,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         quantity: 1,
         price: product.price,
         totalPrice: product.price,
-        productImage: product.imageUrl,
+        productImage: product.imageUrls,
       };
       dispatch(addItemToCart(cartItem));
     }
@@ -36,16 +36,25 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   return (
     <div>
       <Toaster/>
-      <div className='grid m-auto grid-cols-2 max-w-screen-2xl px-8'>
+      <div className='grid gap-10 m-auto grid-cols-2 max-w-screen-2xl px-8'>
         <div>
-          <Image
-            height={600}
-            width={400}
-            src={product.imageUrl ?? '../../../public/vercel.svg'}
-            alt={product.name ?? 'Product image'}
-          />
+           {product?.imageUrls?.length ? (
+                      product.imageUrls.map((url, index) => (
+                        <Image
+                          key={index}
+                          className="h-[500px] w-full object-contain border border-black"
+                          height={600}
+                          width={400}
+                          src={url}
+                          alt={`Product image ${index + 1}`}
+                        />
+                      ))
+                    ) : (
+                      <p>No images available</p>
+                    )}
         </div>
-        <div className='flex flex-col justify-center gap-5 max-w-[60%]'>
+        <div className='h-full relative'>
+        <div className='flex flex-col justify-center gap-5 max-w-[60%] sticky top-5'>
           <Image height={25} width={25} src={moon} alt="moon" />
           <h2 className='text-3xl'>{product.name}</h2>
           <h3>${product.price}</h3>
@@ -53,6 +62,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
             Add To Bag
           </Link>
           <p>{product.description}</p>
+        </div>
         </div>
       </div>
     </div>

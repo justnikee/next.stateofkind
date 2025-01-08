@@ -12,16 +12,12 @@ import {
     CarouselPrevious 
 } from '@/components/ui/carousel';
 
+interface ProductSliderProps {
+    products: Product[]; 
+  }
 
-const getProductsForSlider = async():Promise<Product[]> => {
-    const products = await prisma.product.findMany();
-    return products
-}
 
-const ProductSlider:React.FC<Product[]> = async () => {
-
-    const products = await getProductsForSlider();
-
+const ProductSlider:React.FC<ProductSliderProps> = async ({products}) => {
   return (
     <div className='max-w-screen-xl px-12 py-12 m-auto'>
         <div className='mb-10'>
@@ -31,11 +27,21 @@ const ProductSlider:React.FC<Product[]> = async () => {
             <Carousel>
                 <CarouselContent>
                 {
-                products.map((product, index) => (
+                products?.map((product, index) => (
                     <CarouselItem key={index} className='basis-1/5'>
                     <div className=''>
                         <Link className='flex flex-col gap-5' href={`/product/${product.id}`}>
-                           <Image className='rounded-3xl object-cover h-60 w-60' src={product.imageUrl ?? "../../public/vercel.svg"} height={300} width={300} alt={product.name} />
+                        {product.imageUrls.length > 0 ? (
+                  <Image
+                    className="rounded-3xl object-cover h-60 w-60"
+                    src={product.imageUrls[0]}
+                    height={300}
+                    width={300}
+                    alt={product.name}
+                  />
+                ) : (
+                  <p>No Image Available</p>
+                )}
                            <h3>{product.name}</h3>
                            </Link>
                     </div>

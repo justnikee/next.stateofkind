@@ -20,7 +20,7 @@ export interface Product {
     name: string;
     description: string | null;
     price: number;
-    imageUrl: string | null;
+    imageUrls: string[];
     createdAt: Date;
     updatedAt: Date;
 }
