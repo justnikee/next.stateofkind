@@ -40,7 +40,7 @@ const marqueeItems = [
 
 const AnnouncementBar = () => {
   return (
-    <div className='bg-[#DEDDE0] border-t-[1px] border-b-[1px] border-black overflow-hidden'>
+    <div className='bg-transparent border-t-[1px] z-[99] border-b-[1px] border-white overflow-hidden'>
         <div className='flex'>
             <Marquee/>
             <Marquee/>
@@ -55,7 +55,7 @@ const Marquee = () => {
   return(
       <div className="marquee-block flex gap-12 py-1" style={{ animationDuration: "50s" }}>
             {marqueeItems.map((item, index) => (
-            <span className='flex gap-12 flex-nowrap whitespace-nowrap text-sm font-[SpaceMono-reg]' key={index}>
+            <span className='flex gap-12 flex-nowrap text-white whitespace-nowrap text-sm font-[SpaceMono-reg]' key={index}>
             <strong>{item.text}</strong>
             {item.link && (
             <Link

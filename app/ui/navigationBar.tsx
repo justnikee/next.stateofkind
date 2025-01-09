@@ -32,25 +32,25 @@ const quantityInCart = useSelector((state: RootState) => state.cart.totalQuantit
 
   return (
     <>
-     <div className='bg-white h-16 z-10 flex items-center sticky top-0'>
+     <div className='bg-transparent h-16 z-10 flex items-center sticky top-0'>
       <div className='sm:px-8 md:px-16 flex justify-between items-center w-full m-auto'>
       <div className='flex gap-5 w-1/3 m-auto '>
             {leftSideLinks.map((item, index) => (
-                <Link className='text-lg leading-6 text-black font-[SpaceMono-reg] uppercase' key={index} href={item.link}>
+                <Link className='text-lg leading-6 text-white font-[SpaceMono-reg] uppercase' key={index} href={item.link}>
                     {item.name}
                 </Link>
             ))}
         </div>
         <div className='w-1/3 flex justify-center'>
-            <Link className='text-3xl text-black font-[SpaceMono-bold] uppercase' href={"/"}>
+            <Link className='text-3xl text-white font-[SpaceMono-bold] uppercase' href={"/"}>
             State of Kind
             </Link>
         </div>
         <div className='flex gap-5 w-1/3 justify-end'>
-        <Link className="text-lg leading-6 text-black font-[SpaceMono-reg] uppercase" href="/account">
+        <Link className="text-lg leading-6 text-white font-[SpaceMono-reg] uppercase" href="/account">
          Account
         </Link>
-        <Link onClick={handleBagRef} className="text-lg leading-6 text-black font-[SpaceMono-reg] uppercase" href="#">
+        <Link onClick={handleBagRef} className="text-lg leading-6 text-white font-[SpaceMono-reg] uppercase" href="#">
         Bag<span>({quantityInCart})</span>
         </Link>
         </div>
