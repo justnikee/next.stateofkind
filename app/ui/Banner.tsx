@@ -12,7 +12,7 @@ const Banner = (props: Props) => {
     <div className='h-[800px] w-auto -mt-[93px] relative -z-0 overflow-hidden flex items-end'>
         <div className='flex gap-5 sm:px-8 h-fit w-full justify-between items-center z-10 relative mb-4'>
            <h2 className='text-[#fff] text-[40px] leading-[50px] uppercase flex-1'>The Sale.</h2>
-           <p className='text-white text-lg flex-1 text-center'>SAVE UP TO 50% ON EVERYTHING</p>
+           <p className='text-white block text-lg flex-1 text-center'>SAVE UP TO 50% ON EVERYTHING</p>
            <div className='flex-1 flex justify-end items-center'>
            <Link className='bg-white px-5 py-3 text-sm uppercase text-black w-fit rounded-full' href='/pages/skincare'>Shop Now</Link>
            </div>
