@@ -1,8 +1,7 @@
 
 import React from 'react'
-import { CldUploadButton } from 'next-cloudinary';
-import Products from './manageProducts/products';
-import AddProduct from './manageProducts/AddProduct';
+import Products from './products/edit';
+import AddProduct from './products/add';
 
 
 type Props = {}
