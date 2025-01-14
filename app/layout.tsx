@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import NavigationBar from "./ui/navigationBar";
 import ClientProvider from "./clientProvider";
-import Footer from "./ui/footer";
-import AnnouncementBar from "./ui/announcementbar";
 import Head from "next/head";
 
 
@@ -33,12 +30,9 @@ export default function RootLayout({
       </Head>
     <body className={inter.className}>
     <ClientProvider>
-      <AnnouncementBar/>
-       <NavigationBar />
         <main>
         {children}
         </main>
-        <Footer/>
         </ClientProvider>
         </body>
     </html>

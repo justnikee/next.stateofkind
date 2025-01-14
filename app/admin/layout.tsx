@@ -10,7 +10,7 @@ export default function layout({children,}: Readonly<{children: React.ReactNode;
     <html lang="en">
       <body>
         <Header/>
-        <main className="max-w-screen-xl m-auto">
+        <main className="m-auto">
           {children}
         </main>
       </body>
@@ -34,7 +34,7 @@ export const Header = () => {
         <button>Account</button>
       </div>
      </div>
-     <div className="w-[240px] bg-[#EBEBEB] flex flex-col p-3">
+     <div className="w-[240px] bg-[#EBEBEB] flex flex-col p-3 fixed left-0">
          <Link className={`text-sm capitalize font-bold text-[#303030] font-[Mona Sans] hover:bg-white rounded-sm p-2 ${pathname === '/admin' ? "bg-bg-white" : ""}`} href={"/admin"}>Home</Link>
          <Link className={`text-sm capitalize font-bold text-[#303030] hover:bg-white rounded-sm p-2 ${pathname === '/admin/products' ? "bg-bg-white" : ""}`} href={"/admin/products"}>Products</Link>
          <Link className={`text-sm capitalize font-bold text-[#303030] hover:bg-white rounded-sm p-2 ${pathname === '/admin/orders' ? "bg-bg-white" : ""}`} href={"/admin/orders"}>Orders</Link>

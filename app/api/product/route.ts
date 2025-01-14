@@ -5,76 +5,63 @@ import { NextRequest, NextResponse } from "next/server";
 
 
 export async function GET(req: NextRequest){
-
-// Pagination
-const page = parseInt(req.nextUrl.searchParams.get('page') || "1", 10)
-const limit = parseInt(req.nextUrl.searchParams.get('limit') || '10', 10)
-
-// skip products
-const skipProducts = (page - 1) * limit;
-
 try {
-    // use skip and take to get the paginated products
-const skippedProducts = await prisma.product.findMany({
-    skip: skipProducts,
-    take: limit
+    const queryReq = req.nextUrl.searchParams.get('q') || "";
+const sortParam = req.nextUrl.searchParams.get('sort') || "name_asc";
+const page = parseInt(req.nextUrl.searchParams.get('page') || "1", 10);
+const limit = parseInt(req.nextUrl.searchParams.get('limit') || '10', 10);
+
+
+const skip  = (page - 1) * limit;
+
+const sortingOptions: Record<string, any> = {
+    price_asc: {price : "asc"},
+    price_desc: {price : "desc"},
+    name_asc: {name : "asc"},
+    name_desc: {name: "desc"},
+    new: {createdAt: "asc"},
+    old: {createdAt: "desc"}
+};
+
+const orderBy = sortingOptions[sortParam] || {name : "asc"};
+
+
+const products = await prisma.product.findMany({
+    where: {
+      OR: [
+        { name: { contains: queryReq, mode: "insensitive" } },
+        { description: { contains: queryReq, mode: "insensitive" } },
+      ],
+    },
+    orderBy,
+    skip,
+    take: limit,
+  });
+
+  if(products.length === 0){
+    return NextResponse.json({ message: "No products found.", status: 404 });
+  }
+
+// total count 
+const totalProducts = await prisma.product.count({
+    where: {
+        OR: [
+            {name: {contains: queryReq, mode: "insensitive"}},
+            {description: {contains: queryReq, mode: "insensitive"}},
+        ]
+    }
 });
 
-if(skippedProducts.length === 0){
-    return NextResponse.json({message: "No More Products", status: 404});
-}
 
-return NextResponse.json({skippedProducts, status: 200});
+return NextResponse.json({
+    status: 200,
+    totalProducts,
+    currentPage: page,
+    totalPage: Math.ceil(totalProducts / limit),
+    products
+})
 } catch (error) {
-    if(error instanceof Error){
-        return NextResponse.json({message: error.message, status: 404});
-    }
-}
-
-// Search functionality
-const queryReq = req.nextUrl.searchParams.get('q');
-// console.log(queryReq);
-// console.log(req.nextUrl.href);
-if(queryReq){
-    
-    try {
-        const querySearchData = await prisma.product.findMany({
-            where: {
-                OR: [
-                    {
-                        name: { contains : queryReq, mode: "insensitive"},
-                        description: { contains : queryReq, mode: "insensitive"}
-                    }
-                ]
-            }
-        });
-
-        if(querySearchData.length === 0){
-            return NextResponse.json({message: "No Products Found", status: 404});
-        }
-
-        return NextResponse.json(querySearchData, {status: 200});
-    } catch (error) {
-        if(error instanceof Error){
-            return NextResponse.json({message: error.message, status: 404});
-        }
-        return NextResponse.json({message: "An unknown error occurred", status: 500});
-    }
-    
-}
-
-
-try{
-    const response = await prisma.product.findMany();
-    if(!response){
-        return NextResponse.json({message: "No products found.", status: 404})
-    }
-    return NextResponse.json(response, {status: 200})
-}catch(error){
-    if(error instanceof Error){
-        return NextResponse.json({message: error.message}, {status: 404});
-    }
-    return NextResponse.json({message: "An unknown error occurred"}, {status: 404});
+    return NextResponse.json({ message: error instanceof Error ? error.message : "An unknown error occurred", status: 500 }); 
 }
 }
 
