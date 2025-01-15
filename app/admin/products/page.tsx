@@ -5,6 +5,13 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
+
+type Product = {
+  name: string;
+  imageUrls: string[];
+  id: string;
+}
+
 const Products = () => {
 
   const [products, setProducts] = useState([])
@@ -37,7 +44,7 @@ const Products = () => {
       </div>
       <div className='flex flex-col gap-3'>
         {
-          products.map((product, index) => (
+          products.map((product: Product, index) => (
             <div key={index} className='flex gap-3 items-center'>
               <Image className='h-20 w-20 object-cover' src={product.imageUrls[0]} width={500} height={500} alt="" />
               <h3>{product.name}</h3>

@@ -40,7 +40,7 @@ const marqueeItems = [
 
 const AnnouncementBar = () => {
   return (
-    <div className='bg-transparent border-t-[1px] z-[99] border-b-[1px] border-white overflow-hidden'>
+    <div className='bg-transparent border-t-[1px] z-[99] relative border-b-[1px] border-white overflow-hidden'>
         <div className='flex'>
             <Marquee/>
             <Marquee/>

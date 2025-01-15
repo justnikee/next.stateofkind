@@ -1,22 +1,19 @@
 
 import Banner from "./ui/Banner";
-import AnnouncementBar from "./ui/announcementbar";
-import NavigationBar from "./ui/navigationBar";
 import ProductSlider from "./ui/ProductSlider";
-
 import { prisma } from "@/lib";
-import Footer from "./ui/footer";
+import Preloader from "./ui/preloader";
+
 
 export default async function Home() {
   const products = await prisma.product.findMany();
   return (
    <>
-    <AnnouncementBar/>
-    <NavigationBar />
+   <Preloader/>
     <Banner />
     {/* <FeaturedProduct/> */}
     <ProductSlider products={products}/>
-    <Footer/>
+   
    </>
   );
 }
