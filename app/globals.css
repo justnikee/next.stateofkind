@@ -140,3 +140,12 @@
   -ms-transform: translate(-50%, -50%);
   -o-transform: translate(-50%, -50%);
 }
+
+
+div[aria-roledescription="carousel"] {
+  height: 100%;
+}
+
+div[aria-roledescription="carousel"] > div {
+  height: 100%;
+}
