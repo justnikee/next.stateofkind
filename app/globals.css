@@ -149,3 +149,9 @@ div[aria-roledescription="carousel"] {
 div[aria-roledescription="carousel"] > div {
   height: 100%;
 }
+
+
+.admin-main-content{
+  max-width: calc(100% - 240px);
+  margin-left: auto;
+}

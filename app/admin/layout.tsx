@@ -1,45 +1,59 @@
-"use client"
-
+"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function layout({children,}: Readonly<{children: React.ReactNode;}>){
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <>
-    <html lang="en">
-      <body>
-        <Header/>
-        <main className="m-auto">
-          {children}
-        </main>
-      </body>
-    </html>
-    </>
-  )
+    <div className="admin-dashboard flex">
+      <Sidebar />
+      <div className="admin-content flex-1">
+        <Header />
+        <main className="p-6 admin-main-content">{children}</main>
+      </div>
+    </div>
+  );
 }
 
+const Header = () => {
+  return (
+    <header className="h-14 bg-[#1A1A1A] text-white flex items-center px-5">
+      <h2 className="text-2xl font-bold">Admin Dashboard</h2>
+      <div className="ml-auto">
+        <input
+          type="text"
+          placeholder="Search"
+          className="p-2 rounded-md border"
+        />
+      </div>
+    </header>
+  );
+};
 
-export const Header = () => {
- const pathname = usePathname();
+const Sidebar = () => {
+  const pathname = usePathname();
+
+  const links = [
+    { href: "/admin", label: "Home" },
+    { href: "/admin/products", label: "Products" },
+    { href: "/admin/category", label: "Collections" },
+    { href: "/admin/orders", label: "Orders" },
+    { href: "/admin/user", label: "Customers" },
+  ];
 
   return (
-   <div className="">
-     <div className="h-14 flex bg-[#1A1A1A] justify-between px-5 items-center">
-      <h2 className="text-3xl uppercase text-white">Dashboard</h2>
-      <div>
-        <input type="text" placeholder="search" />
-      </div>
-      <div>
-        <button>Account</button>
-      </div>
-     </div>
-     <div className="w-[240px] bg-[#EBEBEB] flex flex-col p-3 fixed left-0">
-         <Link className={`text-sm capitalize font-bold text-[#303030] font-[Mona Sans] hover:bg-white rounded-sm p-2 ${pathname === '/admin' ? "bg-bg-white" : ""}`} href={"/admin"}>Home</Link>
-         <Link className={`text-sm capitalize font-bold text-[#303030] hover:bg-white rounded-sm p-2 ${pathname === '/admin/products' ? "bg-bg-white" : ""}`} href={"/admin/products"}>Products</Link>
-         <Link className={`text-sm capitalize font-bold text-[#303030] hover:bg-white rounded-sm p-2 ${pathname === '/admin/orders' ? "bg-bg-white" : ""}`} href={"/admin/orders"}>Orders</Link>
-         <Link className={`text-sm capitalize font-bold text-[#303030] hover:bg-white rounded-sm p-2 ${pathname === '/admin/user' ? "bg-bg-white" : ""}`} href={"/admin/user"}>Customers</Link>
-     </div>
-   </div>
-  )
-}
+    <aside className="w-[240px] bg-[#EBEBEB] p-4 flex flex-col h-screen fixed">
+      {links.map((link) => (
+        <Link
+          key={link.href}
+          href={link.href}
+          className={`p-2 rounded-sm text-sm capitalize font-bold ${
+            pathname === link.href ? "bg-white text-[#1A1A1A]" : "text-[#303030]"
+          } hover:bg-white`}
+        >
+          {link.label}
+        </Link>
+      ))}
+    </aside>
+  );
+};

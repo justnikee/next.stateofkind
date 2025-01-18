@@ -53,7 +53,7 @@ onMouseLeave={plugin.current.reset}
 }
 
 
-const Video = ({prop}) => {
+const Video = ({prop}: any) => {
   return (
     <video width="1920" height="1080" autoPlay loop muted playsInline preload="none">
       <source src={prop} type="video/mp4" />
