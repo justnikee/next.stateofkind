@@ -1,5 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+
+
+type Category = {
+  id: string;
+  name: string;
+}
 
 const Page = () => {
   const [collection, setCollection] = useState("");
@@ -40,6 +47,7 @@ const Page = () => {
   };
 
   return (
+    <>
     <div>
       <h2 className="text-2xl font-bold mb-4">Add Category</h2>
       {message && (
@@ -68,10 +76,59 @@ const Page = () => {
         </button>
       </form>
     </div>
+    <Categories/>
+    </>
   );
 };
 
 
+function Categories() {
+  const [cats, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const res = await fetch("/api/category");
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch categories");
+        }
+
+        const data = await res.json();
+        const actualData = await data.res;
+        console.log(actualData)
+
+        // Ensure data is an array before setting it
+        if (Array.isArray(actualData)) {
+          setCategories(actualData);
+        } else {
+          console.error("Unexpected data format:", actualData);
+        }
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    }
+
+    fetchCategories();
+  }, []);
+
+  return (
+    <div>
+      <h3>Categories</h3>
+      <div className="flex flex-col gap-2">
+        {cats.length > 0 ? (
+          cats.map((category, index) => (
+            <Link key={index} href={`/admin/category/${category.id}`}>
+              {category.name}
+            </Link>
+          ))
+        ) : (
+          <p>No categories found.</p>
+        )}
+      </div>
+    </div>
+  );
+}
 
 
 

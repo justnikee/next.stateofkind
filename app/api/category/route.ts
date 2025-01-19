@@ -22,3 +22,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Failed to create category", status: 500 });
   }
 }
+
+
+
+export async function GET(){
+  try{
+    const res = await prisma.category.findMany();
+    if(res.length === 0){
+      return NextResponse.json({message: "No categories found!"});
+    }
+
+    return NextResponse.json({res, status: 200});
+  }catch(error){
+    return NextResponse.json({error, status: 500});
+  }
+}
