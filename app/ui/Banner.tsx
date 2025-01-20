@@ -1,7 +1,6 @@
 "use client"
 
 import React from 'react'
-import Image from 'next/image'
 import Autoplay from "embla-carousel-autoplay"
 
 
@@ -31,10 +30,10 @@ const Banner = () => {
         align: "start",
         loop: true,
       }}
-plugins={[plugin.current]}
-className="w-full"
-onMouseEnter={plugin.current.stop}
-onMouseLeave={plugin.current.reset}
+        plugins={[plugin.current]}
+        className="w-full"
+        onMouseEnter={plugin.current.stop}
+        onMouseLeave={plugin.current.reset}
       >
         <CarouselContent className='h-full'>
           <CarouselItem className='h-full'>

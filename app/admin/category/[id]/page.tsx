@@ -3,8 +3,8 @@ import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const Page = () => {
-  const params = useParams(); // Extract dynamic route params
-  const id = params?.id; // Safely get `id`
+  const params = useParams();
+  const id = params?.id;
 
   console.log("Fetched ID:", id);
 
@@ -28,7 +28,7 @@ const Page = () => {
         setData(result);
       } catch (err) {
         console.error("Error fetching category:", err);
-        // setError(err.message);
+        setError(err);
       }
     }
 
@@ -41,7 +41,12 @@ const Page = () => {
   return (
     <div>
       <h1>Category Details</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <div>
+        <form className="flex">
+          <label>Category Title</label>
+          <input placeholder="Category Name" value={data.category.name}></input>
+        </form>
+      </div>
     </div>
   );
 };
