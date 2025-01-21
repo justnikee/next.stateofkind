@@ -171,3 +171,12 @@ div[aria-roledescription="carousel"] > div {
   max-width: calc(100% - 240px);
   margin-left: auto;
 }
+
+
+.image-grid {
+  display: grid;
+  }
+
+  .image-grid img:nth-child(3n+1) {
+    grid-column: 1 / 3;
+}

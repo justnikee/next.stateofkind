@@ -3,7 +3,6 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import moon from '@/public/night-icon.png'
 import { useDispatch } from 'react-redux';
 import { addItemToCart } from '@/store/slices/CartSlice';
 import { Product, CartItem } from '@/app/types/cart';
@@ -36,13 +35,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   return (
     <div>
       <Toaster/>
-      <div className='grid gap-10 m-auto grid-cols-2 max-w-screen-2xl px-8'>
-        <div>
+      <div className='grid gap-10 m-auto grid-cols-2 max-w-full px-8 pl-0'>
+        <div className='grid grid-cols-2 image-grid'>
            {product?.imageUrls?.length ? (
                       product.imageUrls.map((url, index) => (
                         <Image
                           key={index}
-                          className="h-[500px] w-full object-contain border border-black"
+                          className="h-fit w-full object-contain"
                           height={600}
                           width={400}
                           src={url}
@@ -53,15 +52,14 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                       <p>No images available</p>
                     )}
         </div>
-        <div className='h-full relative'>
-        <div className='flex flex-col justify-center gap-5 max-w-[60%] sticky top-5'>
-          <Image height={25} width={25} src={moon} alt="moon" />
-          <h2 className='text-3xl'>{product.name}</h2>
-          <h3>${product.price}</h3>
-          <Link onClick={handleAddToCart} className='border-t-2 border-b-2 px-4 py-3 uppercase w-fit' href=''>
-            Add To Bag
+        <div className='h-full relative flex justify-center pt-10'>
+        <div className='flex flex-col pt-20 max-w-[487px] h-fit sticky top-5'>
+          <h2 className='text-lg uppercase'>{product.name}</h2>
+          <h3>$<span className='font-bold'>{product.price}</span></h3>
+          <Link onClick={handleAddToCart} className='mt-7 border-t-2 border-b-2 px-4 py-3 uppercase w-full bg-black text-center text-white' href=''>
+            Add To Cart
           </Link>
-          <p>{product.description}</p>
+          <p className='mt-4'>{product.description}</p>
         </div>
         </div>
       </div>

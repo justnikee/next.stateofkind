@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import CartDrawer from '@/components/cart/cartDrawer';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 
 const leftSideLinks = [
@@ -14,12 +15,9 @@ const leftSideLinks = [
     { name: 'Learn', link: '#' }
   ];
 
-  // const rightSideLinks = [
-  //   { name: 'Account', link: '/account' },
-  //   { name: 'Bag', link: '#' }
-  // ];
-
 const NavigationBar = () => {
+  const pathname = usePathname();
+  const isHomePage = pathname === '/';
 
   const [isCartOpen, setCartOpen] = useState(false)
 
@@ -32,7 +30,7 @@ const quantityInCart = useSelector((state: RootState) => state.cart.totalQuantit
 
   return (
     <>
-     <div className='bg-transparent h-16 z-10 flex items-center sticky top-0'>
+     <div className={`${isHomePage ? "bg-transparent" : "bg-black"} h-16 z-10 flex items-center sticky top-0`}>
       <div className='sm:px-8 md:px-16 flex justify-between items-center w-full m-auto'>
       <div className='flex gap-5 w-1/3 m-auto '>
             {leftSideLinks.map((item, index) => (
