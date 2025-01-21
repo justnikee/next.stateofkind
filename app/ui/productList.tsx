@@ -66,7 +66,7 @@ const ProductList = ({ products, loading }: ProductListProps) => {
                   />
                 </TableCell>
                 <TableCell>{product.name}</TableCell>
-                <TableCell>{product.price}</TableCell>
+                <TableCell>${product.price}</TableCell>
                 <TableCell className="text-right">
                   <Link
                     className="flex justify-self-end z-20 relative"
