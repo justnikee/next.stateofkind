@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google";
 import ClientProvider from "../clientProvider";
-import { AppSidebar } from "@/components/app-sidebar"; // Import the sidebar
-import { SidebarProvider } from "@/components/ui/sidebar"; // Import SidebarProvider
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,8 +20,11 @@ export default function AdminLayout({
       <body className={inter.className}>
         <ClientProvider>
           <SidebarProvider>
-            <AppSidebar /> {/* Render the sidebar here */}
-            <main className="w-full" >{children}</main>
+            <AppSidebar />
+            <main className="w-full">
+              <SidebarTrigger />
+              {children}
+            </main>
           </SidebarProvider>
         </ClientProvider>
       </body>

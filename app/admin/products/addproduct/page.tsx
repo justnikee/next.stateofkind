@@ -1,10 +1,12 @@
-import React from 'react'
-import AddProduct from '../add'
+import AddProduct from "../../components/addProduct"
 
-const page = () => {
-  return (
+const Page = () => {
+  return(
+    <>
     <AddProduct/>
+    </>
   )
 }
 
-export default page
+export default Page;
+

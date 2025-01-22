@@ -1,29 +1,35 @@
 "use client";
 
 import { useState } from "react";
+import ImageUpload from '@/components/ImageUpload';
 
 const AddProduct = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [imageUrls, setImageUrls] = useState<string[]>([""]); // Array for multiple images
+  const [imageUrls, setImageUrls] = useState<string[]>([]); // Array for multiple images
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const handleImageChange = (index: number, value: string) => {
-    const updatedImages = [...imageUrls];
-    updatedImages[index] = value;
-    setImageUrls(updatedImages);
-  };
+
+  function handleUploadComplete (urls: string[]) {
+setImageUrls((prevUrls) => [...prevUrls, ...urls]);
+  }
+
+  // const handleImageChange = (index: number, value: string) => {
+  //   const updatedImages = [...imageUrls];
+  //   updatedImages[index] = value;
+  //   setImageUrls(updatedImages);
+  // };
 
   const addImageField = () => {
     setImageUrls([...imageUrls, ""]);
   };
 
-  const removeImageField = (index: number) => {
-    const updatedImages = imageUrls.filter((_, i) => i !== index);
-    setImageUrls(updatedImages);
-  };
+  // const removeImageField = (index: number) => {
+  //   const updatedImages = imageUrls.filter((_, i) => i !== index);
+  //   setImageUrls(updatedImages);
+  // };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,7 +54,7 @@ const AddProduct = () => {
         setName("");
         setDescription("");
         setPrice("");
-        setImageUrls([""]); // Reset images field
+        setImageUrls([]); // Reset images field
       } else {
         const errorData = await response.json();
         setMessage(`Error: ${errorData.error}`);
@@ -90,23 +96,21 @@ const AddProduct = () => {
           className="w-full p-2 border rounded"
         />
 
+
+        
+
         <div className="space-y-2">
           <label className="font-medium">Product Images</label>
+          <ImageUpload onUploadComplete={handleUploadComplete} />
           {imageUrls.map((url, index) => (
-            <div key={index} className="flex gap-2">
-              <input
-                type="text"
-                placeholder={`Image URL ${index + 1}`}
-                value={url}
-                onChange={(e) => handleImageChange(index, e.target.value)}
-                className="w-full p-2 border rounded"
-              />
-              {index > 0 && (
-                <button type="button" onClick={() => removeImageField(index)} className="px-2 bg-red-500 text-white rounded">
-                  ✖
-                </button>
-              )}
-            </div>
+            <div key={index} className="flex items-center gap-2">
+                <img
+                  src={url}
+                  alt={`Product Image ${index + 1}`}
+                  className="w-16 h-16 object-cover rounded"
+                />
+                <span className="text-sm text-gray-600">{url}</span>
+              </div>
           ))}
           <button type="button" onClick={addImageField} className="text-blue-500">
             + Add More Images

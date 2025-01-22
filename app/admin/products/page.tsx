@@ -4,6 +4,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 import ProductList from '@/app/ui/productList';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 
 type Product = {
@@ -59,6 +60,7 @@ const Products = () => {
           <h4 className='text-2xl font-bold'>Products</h4>
           <form>
             <Input
+            className='w-96'
               value={search}
               onChange={(e) => {
                 setSearch(e.target.value);
@@ -67,7 +69,9 @@ const Products = () => {
               placeholder="Search Products"
             />
           </form>
+          <Button>
           <Link href={"/admin/products/addproduct"}>Add Products</Link>
+          </Button> 
         </div>
         <div className='flex flex-col gap-3'>
           <ProductList products={products} loading={loading} />
