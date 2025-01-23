@@ -23,6 +23,7 @@ export interface Product {
     imageUrls: string[];
     createdAt: Date;
     updatedAt: Date;
+    comparedAtPrice: number;
 }
 
 export interface Products {

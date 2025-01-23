@@ -55,7 +55,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         <div className='h-full relative flex justify-center pt-10'>
         <div className='flex flex-col pt-20 max-w-[487px] h-fit sticky top-5'>
           <h2 className='text-lg uppercase'>{product.name}</h2>
-          <h3>$<span className='font-bold'>{product.price}</span></h3>
+          <h3 className='flex gap-1'><span className='line-through'>${product.comparedAtPrice}</span>$<span className='font-bold'>{product.price}</span></h3>
           <Link onClick={handleAddToCart} className='mt-7 border-t-2 border-b-2 px-4 py-3 uppercase w-full bg-black text-center text-white' href=''>
             Add To Cart
           </Link>

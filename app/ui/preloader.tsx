@@ -10,8 +10,19 @@ const Preloader = () => {
   const bottomText = useRef<HTMLDivElement>(null);
   const middleText = useRef<HTMLDivElement>(null);
 const preloaderContainer = useRef<HTMLDivElement>(null);
+
+
+
   useEffect(() => {
-    gsap.to(topBlock.current, {
+
+    const timeline = gsap.timeline({
+      onComplete: () => {
+        preloaderContainer.current?.remove();
+      },
+    });
+
+
+    timeline.to(topBlock.current, {
       clipPath: "inset(0 0 100% 0) ", // Collapse from bottom to top
       duration: 10,
       delay: 1,
@@ -19,21 +30,15 @@ const preloaderContainer = useRef<HTMLDivElement>(null);
       onComplete: () => {
         preloaderContainer.current?.remove();
       }
-    });
-
-    gsap.to(bottomBlock.current, {
+    }).to(bottomBlock.current, {
       clipPath: "inset(100% 0 0 0)", // Collapse from top to bottom
       duration: 10,
       delay: 1,
       ease: "power4.out",
-    });
-
-    gsap.to([topText.current,middleText.current, bottomText.current], {
+    }).to([topText.current,middleText.current, bottomText.current], {
       opacity: 1,
       delay: 0,
-    });
-
-    gsap.to(topText.current, {
+    }).to(topText.current, {
       y: "-100%",
       duration: 2,
       delay: 0,
@@ -41,9 +46,7 @@ const preloaderContainer = useRef<HTMLDivElement>(null);
       onComplete: () => {
         gsap.to(topText.current, { y: "-200%", duration: 1, ease: "power4.in" });
       }
-    });
-  
-    gsap.to(middleText.current, {
+    }).to(middleText.current, {
       y: "-100%",
       duration: 2,
       delay: 2, // Delay for middle text
@@ -51,11 +54,7 @@ const preloaderContainer = useRef<HTMLDivElement>(null);
       onComplete: () => {
         gsap.to(middleText.current, { y: "-200%", duration: 1, ease: "power4.in"});
       }
-
-
-    });
-  
-    gsap.to(bottomText.current, {
+    }).to(bottomText.current, {
       y: "-100%",
       duration: 2,
       delay: 4, // Delay for bottom text
@@ -65,7 +64,9 @@ const preloaderContainer = useRef<HTMLDivElement>(null);
       }
     });
 
-   
+    return () => {
+      timeline.kill();
+    };
 
   }, []);
 
