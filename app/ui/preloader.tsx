@@ -15,30 +15,35 @@ const preloaderContainer = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
 
-    const timeline = gsap.timeline({
-      onComplete: () => {
-        preloaderContainer.current?.remove();
-      },
-    });
 
-
-    timeline.to(topBlock.current, {
+    gsap.to(topBlock.current, {
       clipPath: "inset(0 0 100% 0) ", // Collapse from bottom to top
       duration: 10,
       delay: 1,
       ease: "power4.out",
       onComplete: () => {
-        preloaderContainer.current?.remove();
-      }
-    }).to(bottomBlock.current, {
+        gsap.to(preloaderContainer.current, {
+          opacity: 0,
+          duration: 0.5,
+height: 0,
+width: 0
+      })
+    }
+    })
+    
+    gsap.to(bottomBlock.current, {
       clipPath: "inset(100% 0 0 0)", // Collapse from top to bottom
       duration: 10,
       delay: 1,
       ease: "power4.out",
-    }).to([topText.current,middleText.current, bottomText.current], {
+    })
+    
+    gsap.to([topText.current,middleText.current, bottomText.current], {
       opacity: 1,
       delay: 0,
-    }).to(topText.current, {
+    })
+    
+    gsap.to(topText.current, {
       y: "-100%",
       duration: 2,
       delay: 0,
@@ -46,7 +51,9 @@ const preloaderContainer = useRef<HTMLDivElement>(null);
       onComplete: () => {
         gsap.to(topText.current, { y: "-200%", duration: 1, ease: "power4.in" });
       }
-    }).to(middleText.current, {
+    })
+    
+    gsap.to(middleText.current, {
       y: "-100%",
       duration: 2,
       delay: 2, // Delay for middle text
@@ -54,7 +61,9 @@ const preloaderContainer = useRef<HTMLDivElement>(null);
       onComplete: () => {
         gsap.to(middleText.current, { y: "-200%", duration: 1, ease: "power4.in"});
       }
-    }).to(bottomText.current, {
+    })
+    
+    gsap.to(bottomText.current, {
       y: "-100%",
       duration: 2,
       delay: 4, // Delay for bottom text
@@ -64,10 +73,6 @@ const preloaderContainer = useRef<HTMLDivElement>(null);
       }
     });
 
-    return () => {
-      timeline.kill();
-    };
-
   }, []);
 
   return (
@@ -75,12 +80,12 @@ const preloaderContainer = useRef<HTMLDivElement>(null);
       <div
         ref={topBlock}
         className="h-1/2 bg-black w-full absolute top-0"
-        // style={{ clipPath: "inset(0 0 0 0)" }} // Ensure full visibility initially
+        style={{ clipPath: "inset(0 0 0 0)" }} // Ensure full visibility initially
       ></div>
       <div
         ref={bottomBlock}
         className="h-1/2 bg-black w-full absolute bottom-0"
-        // style={{ clipPath: "inset(0 0 0 0)" }} // Ensure full visibility initially
+         style={{ clipPath: "inset(0 0 0 0)" }} // Ensure full visibility initially
       ></div>
       <div className=" relative h-[150px] flex justify-center items-center flex-col gap-10 overflow-hidden w-full">
         <h2 ref={topText} className="text-[150px] absolute top-[100%]  leading-[150px] text-center uppercase font-bold text-black opacity-0">

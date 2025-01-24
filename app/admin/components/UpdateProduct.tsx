@@ -25,6 +25,7 @@ const AddProduct = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
+
   // Handle image upload completion
   const handleUploadComplete = (urls: string[]) => {
     setImageUrls((prevUrls) => [...prevUrls, ...urls]);
