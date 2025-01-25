@@ -26,8 +26,8 @@ type ProductListProps = {
 
 const ProductList = ({ products, loading }: ProductListProps) => {
   return (
+    <>
     <Table>
-      <TableCaption>A list of your recent products.</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px]">Image</TableHead>
@@ -85,6 +85,7 @@ const ProductList = ({ products, loading }: ProductListProps) => {
         )}
       </TableBody>
     </Table>
+    </>
   );
 };
 
