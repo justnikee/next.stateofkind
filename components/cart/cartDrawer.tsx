@@ -6,11 +6,13 @@ import { RootState } from '@/store/store';
 import { removeItemFromCart } from '@/store/slices/CartSlice';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Root } from 'postcss';
 
 const CartDrawer = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: boolean) => void }) => {
 
     const dispatch = useDispatch();
     const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+    const cartTotal = useSelector((state: RootState) => state.cart.totalAmount)
     const handleRemoveItem = (id: string) => {
         dispatch(removeItemFromCart(id))
     }
@@ -31,15 +33,16 @@ const CartDrawer = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: 
             <ul>
                       {cartItems.map((item) => (
                         <li className='mb-4' key={item.id}>
-                          <div className='flex w-full gap-5'>
-                            <Image className='h-36 w-36' width={300} height={300} src={item.productImage} alt={item.name} />
-                            <div className='flex flex-col justify-between w-full items-center'>
-                            <h3>{item.name}</h3>
-                            <p>Quantity: {item.quantity}</p>
-                            <p>Price: ${item.price.toFixed(2)}</p>
-                            <p>Total: ${item.totalPrice.toFixed(2)}</p>
-                            <button onClick={() => handleRemoveItem(item.id)}>Remove</button>
+                          <div className='flex w-full gap-2 items-center'>
+                            <Image className='h-36 w-36 mr-5' width={300} height={300} src={item.productImage[0]} alt={item.name} />
+                            <div className='flex gap-1 flex-col w-full'>
+                            <h3 className='text-sm'>{item.name}</h3>
+                            <p className='text-[12px]'>${item.price.toFixed(2)}</p>
+                            <p className='text-[12px]'>Quantity: {item.quantity}</p>
                             </div>
+                            {/* <p>Total: ${item.totalPrice.toFixed(2)}</p> */}
+                            <button className='text-[12px]' onClick={() => handleRemoveItem(item.id)}>Remove</button>
+                            
                           </div>
                         </li>
                       ))}
@@ -50,6 +53,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: 
          {
             cartItems.length === 0 ? '' : (
                         <div className='flex flex-col gap-2 fixed bottom-0 px-5 w-full max-w-[475px] mb-5'>
+                          <p>Total Ammount: ${cartTotal.toFixed(2)}</p>
                         <Link onClick={() => setIsOpen(false)} className='px-6 py-3 bg-transparent border border-black uppercase text-center' href={'/pages/cart'}>View Cart</Link>
                         <Link className='px-6 py-3 bg-transparent border border-black uppercase bg-black text-fuchsia-50 text-center' href={'/pages/checkout'}>Checkout</Link>
                         </div>

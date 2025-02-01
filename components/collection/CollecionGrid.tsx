@@ -38,6 +38,10 @@ const CollecionGrid: React.FC<CollecionGridProps> = ({ products }) => {
             productImage: product.imageUrls,
         };
         dispatch(addItemToCart(cartItem));
+        setQuantities(prev => ({
+            ...prev,
+            [product.id] : 1
+        }))
     };
 
     
