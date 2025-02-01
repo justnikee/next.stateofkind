@@ -35,10 +35,12 @@ const CollecionGrid: React.FC<CollecionGridProps> = ({ products }) => {
             quantity: quantity,
             price: product.price,
             totalPrice: product.price * quantity,
-            productImage: product.imageUrl,
+            productImage: product.imageUrls,
         };
         dispatch(addItemToCart(cartItem));
     };
+
+    
 
     return (
         <div>
@@ -47,19 +49,32 @@ const CollecionGrid: React.FC<CollecionGridProps> = ({ products }) => {
             <div className='grid grid-cols-4 gap-6'>
                 {products.map((product) => (
                     <div key={product.id} className='border border-[#e7dae2] rounded-sm overflow-hidden'>
-                        <Link className='flex flex-col' href={`/product/${product.id}`}>
+                        <Link className='flex relative flex-col' href={`/product/${product.id}`}>
+                        {product.imageUrls?.length > 0 && (
                             <Image
-                                className='object-cover h-96 w-full'
-                                src={product.imageUrl ?? "/vercel.svg"}
+                                className='object-cover h-auto w-auto'
+                                src={product.imageUrls[0] ?? "/vercel.svg"}
                                 height={300}
                                 width={300}
                                 alt={product.name}
                             />
+                           )
+                        }
+                        {product.imageUrls?.length > 0 && (
+                            <Image
+                                className='object-cover absolute h-auto w-auto opacity-0 hover:opacity-100 transition duration-700 ease-in-out'
+                                src={product.imageUrls[1] ?? "/vercel.svg"}
+                                height={300}
+                                width={300}
+                                alt={product.name}
+                            />
+                           )
+                        }
                         </Link>
                         <div className='flex flex-col p-5 gap-4 justify-between bg-white'>
                             <div className='flex justify-between'>
                                 <h3>{product.name}</h3>
-                                <p>$ {product.price}.00</p>
+                                <p>${product.price}</p>
                             </div>
                             <div className='flex justify-between gap-5'>
                                 <div className="quantity-selector w-[30%] h-fit relative">
