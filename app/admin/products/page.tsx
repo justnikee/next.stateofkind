@@ -5,12 +5,7 @@ import Link from 'next/link';
 import ProductList from '@/app/ui/productList';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-
-type Product = {
-  name: string;
-  imageUrls: string[];
-  id: string;
-}
+import { Product } from '@/app/types/product';
 
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -45,8 +40,7 @@ const Products = () => {
           const data = await response.json();
           console.log(data);
           console.log("Fetched products:", data.products);
-
-          // Append new products to the existing list
+          
           setProducts((prevState) => [...prevState, ...data.products]);
           setPages(data.totalPage);
         } catch (error) {
@@ -66,7 +60,7 @@ const Products = () => {
 
   return (
     <div className='ml-auto px-3'>
-      <div className=''>
+      <div>
         <div className="flex justify-between px-6 py-6">
           <h4 className='text-2xl font-bold'>Products</h4>
           <form>
@@ -75,9 +69,9 @@ const Products = () => {
               value={search}
               onChange={(e) => {
                 setSearch(e.target.value);
-                setPage(1); // Reset page to 1
-                setProducts([]); // Reset products when search term changes
-                console.log("Search term:", e.target.value); // Debug search term
+                setPage(1);
+                setProducts([]);
+                console.log("Search term:", e.target.value);
               }}
               placeholder="Search Products"
             />
