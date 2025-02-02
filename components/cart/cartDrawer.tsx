@@ -6,7 +6,6 @@ import { RootState } from '@/store/store';
 import { removeItemFromCart } from '@/store/slices/CartSlice';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Root } from 'postcss';
 
 const CartDrawer = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: boolean) => void }) => {
 
@@ -34,13 +33,12 @@ const CartDrawer = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: 
                       {cartItems.map((item) => (
                         <li className='mb-4' key={item.id}>
                           <div className='flex w-full gap-2 items-center'>
-                            <Image className='h-36 w-36 mr-5' width={300} height={300} src={item.productImage[0]} alt={item.name} />
+                            <Image className='h-36 w-36 mr-5' width={300} height={300} src={Array.isArray(item.productImage) && item.productImage.length > 0 ? item.productImage[0] : "/vercel.svg"} alt={item.name} />
                             <div className='flex gap-1 flex-col w-full'>
                             <h3 className='text-sm'>{item.name}</h3>
                             <p className='text-[12px]'>${item.price.toFixed(2)}</p>
                             <p className='text-[12px]'>Quantity: {item.quantity}</p>
                             </div>
-                            {/* <p>Total: ${item.totalPrice.toFixed(2)}</p> */}
                             <button className='text-[12px]' onClick={() => handleRemoveItem(item.id)}>Remove</button>
                             
                           </div>

@@ -14,6 +14,7 @@ const CollecionGrid: React.FC<CollecionGridProps> = ({ products }) => {
     const [quantities, setQuantities] = useState<Record<string, number>>({});
     const dispatch = useDispatch();
 
+
     const getQuantity = (productId: string) => {
         return quantities[productId] || 1;
     };
@@ -54,7 +55,8 @@ const CollecionGrid: React.FC<CollecionGridProps> = ({ products }) => {
                 {products.map((product) => (
                     <div key={product.id} className='border border-[#e7dae2] rounded-sm overflow-hidden'>
                         <Link className='flex relative flex-col' href={`/product/${product.id}`}>
-                        {product.imageUrls?.length > 0 && (
+                        
+                        {Array.isArray(product.imageUrls) && product.imageUrls.length > 0 && (
                             <Image
                                 className='object-cover h-auto w-auto'
                                 src={product.imageUrls[0] ?? "/vercel.svg"}
@@ -64,7 +66,7 @@ const CollecionGrid: React.FC<CollecionGridProps> = ({ products }) => {
                             />
                            )
                         }
-                        {product.imageUrls?.length > 0 && (
+                        {Array.isArray(product.imageUrls) && product.imageUrls.length > 1 && (
                             <Image
                                 className='object-cover absolute h-auto w-auto opacity-0 hover:opacity-100 transition duration-700 ease-in-out'
                                 src={product.imageUrls[1] ?? "/vercel.svg"}
@@ -114,9 +116,9 @@ const CollecionGrid: React.FC<CollecionGridProps> = ({ products }) => {
                                 </div>
                                 <button
                                     onClick={() => handleAddToCart(product)}
-                                    className='flex items-center justify-center h-10 border border-[#393939] text-[#393939] px-1.5 w-[70%] rounded-sm hover:text-white hover:border-white hover:bg-[#393939] text-sm'
+                                    className='flex items-center uppercase justify-center h-10 border border-[#393939] text-[#393939] px-1.5 w-[70%] rounded-sm hover:text-white hover:border-white hover:bg-[#393939] text-sm'
                                 >
-                                    Add to cart - ${product.price}
+                                    Add to cart
                                 </button>
                             </div>
                         </div>

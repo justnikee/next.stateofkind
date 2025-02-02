@@ -5,7 +5,7 @@ export interface CartItem {
     quantity: number;
     price: number;
     totalPrice: number;
-    productImage?: string;
+    productImage?: string[] | string;
 }
 
 

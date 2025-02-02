@@ -2,18 +2,22 @@
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
+type ProductCategory = {
+  category: {
+    name: string
+  }
+}
+
 const Page = () => {
   const params = useParams();
   const id = params?.id;
 
-  console.log("Fetched ID:", id);
-
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
+  const [data, setData] = useState<ProductCategory | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!id) {
-      setError("No ID provided");
+      setError("Product Id Not Found!!");
       return;
     }
 
@@ -28,7 +32,7 @@ const Page = () => {
         setData(result);
       } catch (err) {
         console.error("Error fetching category:", err);
-        setError(err);
+        setError(err instanceof Error ? err.message : "unknown error occured");
       }
     }
 

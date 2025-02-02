@@ -31,7 +31,7 @@ const CartDetails: React.FC = () => {
           {cartItems.map((item) => (
             <li className='mb-4' key={item.id}>
               <div className='flex w-full gap-5'>
-                <Image className='h-36 w-36' width={300} height={300} src={item.productImage} alt={item.name} />
+                <Image className='h-36 w-36' width={300} height={300} src={Array.isArray(item.productImage) && item.productImage.length > 0 ? item.productImage[0] : "/vercel.svg"} alt={item.name} />
                 <div className='flex justify-between w-full items-center'>
                 <h3>{item.name}</h3>
                 <p>Quantity: {item.quantity}</p>

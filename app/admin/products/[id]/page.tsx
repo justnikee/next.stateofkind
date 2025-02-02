@@ -117,24 +117,11 @@ const Page = () => {
     } catch (error) {
       console.error(error);
     }
-
-    // setProductState({
-    //   name: "",
-    //   description: "",
-    //   price: 0,
-    //   imageUrls: [],
-    //   quantity: 0,
-    //   comparedAtPrice: 0,
-    //   status: false,
-    // });
-
   }
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">Update Product</h2>
-      
-     {/* {message && <p className="mb-4 text-red-500">{message}</p>} */}
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <Input
