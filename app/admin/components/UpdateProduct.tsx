@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import ImageUpload from '@/components/ImageUpload';
-import CloseIcon from '@mui/icons-material/Close';
+import ImageUpload from "@/components/ImageUpload";
+import CloseIcon from "@mui/icons-material/Close";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -19,19 +19,16 @@ const AddProduct = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [imageUrls, setImageUrls] = useState<string[]>([]);
-  const [quantity, setQuantity] = useState<number | "">("");
-  const [comparedAtPrice, setComparedAtPrice] = useState<number | "">("");
-  const [status, setStatus] = useState<boolean>(false);
+  const [quantity, setQuantity] = useState("");
+  const [comparedAtPrice, setComparedAtPrice] = useState("");
+  const [status, setStatus] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-
-  // Handle image upload completion
   const handleUploadComplete = (urls: string[]) => {
     setImageUrls((prevUrls) => [...prevUrls, ...urls]);
   };
 
-  // Remove image by index
   const handleRemove = (indexToRemove: number) => {
     const newUrls = imageUrls.filter((_, index) => index !== indexToRemove);
     setImageUrls(newUrls);
@@ -39,18 +36,21 @@ const AddProduct = () => {
     console.log("Updated URLs:", newUrls);
   };
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setMessage("");
-  
-    if (!name || !price || imageUrls.length === 0 || quantity === "" || comparedAtPrice === "") {
+
+    const parsedPrice = price ? parseFloat(price) : 0;
+    const parsedQuantity = quantity ? parseInt(quantity, 10) : 0;
+    const parsedComparedAtPrice = comparedAtPrice ? parseFloat(comparedAtPrice) : 0;
+
+    if (!name || !price || imageUrls.length === 0 || !quantity || !comparedAtPrice) {
       setMessage("Please fill all required fields and add at least one image.");
       setLoading(false);
       return;
     }
-  
+
     try {
       const response = await fetch("/api/addproduct", {
         method: "POST",
@@ -58,14 +58,14 @@ const AddProduct = () => {
         body: JSON.stringify({
           name,
           description,
-          price: parseFloat(price),
+          price: parsedPrice,
           imageUrls,
-          quantity: quantity === "" ? 0 : quantity,
+          quantity: parsedQuantity,
           status,
-          comparedAtPrice: comparedAtPrice === "" ? 0 : parseFloat(comparedAtPrice),
+          comparedAtPrice: parsedComparedAtPrice,
         }),
       });
-  
+
       if (response.ok) {
         setMessage("Product added successfully!");
         setName("");
@@ -85,12 +85,11 @@ const AddProduct = () => {
       setLoading(false);
     }
   };
-  
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">Add Product</h2>
-      
+
       {message && <p className="mb-4 text-red-500">{message}</p>}
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -124,7 +123,7 @@ const AddProduct = () => {
             type="number"
             placeholder="Compared At Price"
             value={comparedAtPrice}
-            onChange={(e) => setComparedAtPrice(e.target.value === "" ? "" : Number(e.target.value))}
+            onChange={(e) => setComparedAtPrice(e.target.value)}
             className="w-full p-2 border rounded"
             required
           />
@@ -144,7 +143,6 @@ const AddProduct = () => {
                 <CloseIcon
                   onClick={() => handleRemove(index)}
                   className="cursor-pointer absolute top-1 right-1 text-red-500 bg-white rounded-full p-1 hover:bg-red-100"
-                  title="Remove image"
                 />
               </div>
             ))}
@@ -155,7 +153,8 @@ const AddProduct = () => {
           type="number"
           placeholder="Quantity"
           value={quantity}
-          onChange={(e) => setQuantity(e.target.value === "" ? "" : Number(e.target.value))}
+          onChange={(e) => setQuantity(e.target.value)}
+          className="w-full p-2 border rounded"
         />
 
         <Select onValueChange={(value) => setStatus(value === "true")}>
