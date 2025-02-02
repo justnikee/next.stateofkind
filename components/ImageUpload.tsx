@@ -10,11 +10,11 @@ type ImageUploadProps = {
 export default function ImageUpload({ onUploadComplete }: ImageUploadProps) {
   return (
     <div>
-      <UploadDropzone<OurFileRouter>
+      <UploadDropzone<OurFileRouter, "imageUploader">
         endpoint="imageUploader"
         onClientUploadComplete={(res) => {
-          const urls = res.map((file) => file.url); // Extract URLs from the response
-          onUploadComplete(urls); // Pass URLs to the parent component
+          const urls = res.map((file) => file.url);
+          onUploadComplete(urls);
         }}
         onUploadError={(error) => {
           console.error("Upload error:", error);
