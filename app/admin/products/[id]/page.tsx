@@ -186,7 +186,6 @@ const Page = () => {
                 <CloseIcon
                   onClick={() => handleRemove(index)}
                   className="cursor-pointer absolute top-1 right-1 text-red-500 bg-white rounded-full p-1 hover:bg-red-100"
-                  title="Remove image"
                 />
               </div>
             ))}
