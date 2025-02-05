@@ -1,6 +1,6 @@
 import { prisma } from '@/lib'
 import ProductDetails from '@/components/product/ProductDetails';
-
+import { Product } from '@/app/types/cart';
 
 async function getProduct(id: string): Promise<Product | null> {
   return prisma.product.findUnique({
