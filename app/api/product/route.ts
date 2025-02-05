@@ -9,10 +9,13 @@ try {
     const queryReq = req.nextUrl.searchParams.get('q') || "";
 const sortParam = req.nextUrl.searchParams.get('sort') || "name_asc";
 const page = parseInt(req.nextUrl.searchParams.get('page') || "1", 10);
-const limit = parseInt(req.nextUrl.searchParams.get('limit') || '10', 10);
+const limit = parseInt(req.nextUrl.searchParams.get('limit') || '12', 10);
 
 
 const skip  = (page - 1) * limit;
+console.log(skip)
+console.log(page)
+console.log(limit)
 
 const sortingOptions: Record<string, any> = {
     price_asc: {price : "asc"},

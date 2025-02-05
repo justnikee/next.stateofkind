@@ -36,7 +36,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: 
                             <Image className='h-36 w-36 mr-5' width={300} height={300} src={Array.isArray(item.productImage) && item.productImage.length > 0 ? item.productImage[0] : "/vercel.svg"} alt={item.name} />
                             <div className='flex gap-1 flex-col w-full'>
                             <h3 className='text-sm'>{item.name}</h3>
-                            <p className='text-[12px]'>${item.price.toFixed(2)}</p>
+                            <p className='text-[12px]'>${item?.price}</p>
                             <p className='text-[12px]'>Quantity: {item.quantity}</p>
                             </div>
                             <button className='text-[12px]' onClick={() => handleRemoveItem(item.id)}>Remove</button>
@@ -51,7 +51,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: 
          {
             cartItems.length === 0 ? '' : (
                         <div className='flex flex-col gap-2 fixed bottom-0 px-5 w-full max-w-[475px] mb-5'>
-                          <p>Total Ammount: ${cartTotal.toFixed(2)}</p>
+                          <p>Total Ammount: ${cartTotal}</p>
                         <Link onClick={() => setIsOpen(false)} className='px-6 py-3 bg-transparent border border-black uppercase text-center' href={'/pages/cart'}>View Cart</Link>
                         <Link className='px-6 py-3 bg-transparent border border-black uppercase bg-black text-fuchsia-50 text-center' href={'/pages/checkout'}>Checkout</Link>
                         </div>

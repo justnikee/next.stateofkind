@@ -10,10 +10,10 @@ interface CollecionGridProps {
     products: Products[];
 }
 
-const CollecionGrid: React.FC<CollecionGridProps> = ({ products }) => {
+const CollecionGrid: React.FC<CollecionGridProps> = ({ products}) => {
     const [quantities, setQuantities] = useState<Record<string, number>>({});
     const dispatch = useDispatch();
-
+    console.log(products)
 
     const getQuantity = (productId: string) => {
         return quantities[productId] || 1;
@@ -45,14 +45,12 @@ const CollecionGrid: React.FC<CollecionGridProps> = ({ products }) => {
         }))
     };
 
-    
-
     return (
         <div>
-            <h2 className='text-3xl mb-7 pt-7'>Skincare</h2>
+            <h2 className='text-3xl mb-7 pt-7'>Shop All</h2>
             <span className='mb-5 block'>{products.length} Products</span>
             <div className='grid grid-cols-4 gap-6'>
-                {products.map((product) => (
+                {products?.map((product) => (
                     <div key={product.id} className='border border-[#e7dae2] rounded-sm overflow-hidden'>
                         <Link className='flex relative flex-col' href={`/product/${product.id}`}>
                         
