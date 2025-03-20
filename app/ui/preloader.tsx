@@ -10,12 +10,7 @@ const Preloader = () => {
   const bottomText = useRef<HTMLDivElement>(null);
   const middleText = useRef<HTMLDivElement>(null);
 const preloaderContainer = useRef<HTMLDivElement>(null);
-
-
-
-  useEffect(() => {
-
-
+useEffect(() => {
     gsap.to(topBlock.current, {
       clipPath: "inset(0 0 100% 0) ", // Collapse from bottom to top
       duration: 10,

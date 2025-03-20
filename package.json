@@ -12,7 +12,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@hookform/resolvers": "^3.9.0",
-    "@million/lint": "^1.0.14",
+    "@million/lint": "^0.0.39",
     "@mui/icons-material": "^6.4.1",
     "@prisma/client": "^6.2.1",
     "@radix-ui/react-avatar": "^1.1.2",
@@ -26,6 +26,7 @@
     "@radix-ui/react-tooltip": "^1.1.7",
     "@reduxjs/toolkit": "^2.2.6",
     "@splidejs/react-splide": "^0.7.12",
+    "@tanstack/react-query": "^5.69.0",
     "@uploadthing/react": "^7.1.5",
     "axios": "^1.7.9",
     "bcryptjs": "^2.4.3",
@@ -52,6 +53,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.68.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/lodash.debounce": "^4.0.9",
