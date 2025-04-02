@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Button from "@/components/global/Button";
 
 type CardType = {
     image: string
@@ -13,7 +14,7 @@ const img3 = "/homepage/ThreeCollectionSection/orchid-mobile-2.webp";
 function HPCollections(){
     return(
         <section>
-             <div className="flex">
+             <div className="grid lg:grid-cols-3">
                 <CollectionCard image={img1} title="Orchid"  subtitle="Orchid Antioxidant Beauty Face Oil" buttonLink="#"/>
                 <CollectionCard image={img2} title="Orchid"  subtitle="Orchid Antioxidant Beauty Face Oil" buttonLink="#"/>
                 <CollectionCard image={img3} title="Orchid"  subtitle="Orchid Antioxidant Beauty Face Oil" buttonLink="#"/>
@@ -25,12 +26,12 @@ function HPCollections(){
 
 function CollectionCard({image, title, subtitle, buttonLink}:CardType){
     return(
-        <div>
-            <Image src={image} height={600} width={400} alt="image" />
-            <div>
-                <h2>{title}</h2>
-                <p>{subtitle}</p>
-                <a href={buttonLink}>Shop Now</a>
+        <div className="relative">
+            <Image className="w-full h-full object-cover lg:h-[792px]" src={image} height={792} width={400} alt="image" />
+            <div className="flex flex-col items-center absolute bottom-10 left-1/2 transform -translate-x-1/2">
+                <h2 className="text-4xl">{title}</h2>
+                <p className="text-lg text-center mt-2">{subtitle}</p>
+                <Button buttonLink={buttonLink} buttonText="Shop Now" dark={false}/>
             </div>
         </div>
     )
