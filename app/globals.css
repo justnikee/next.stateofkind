@@ -184,3 +184,7 @@ div[aria-roledescription="carousel"] > div {
 .uploaded_image:hover .close_icon{
         opacity: 1;
 }
+
+.custom-padding{
+  padding: 20vh calc(var(--gap, 8px)* 4) 100vh;
+}
