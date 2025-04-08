@@ -6,6 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import {
   Select,
   SelectContent,
@@ -135,7 +136,7 @@ const AddProduct = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
             {imageUrls.map((url, index) => (
               <div key={index} className="relative">
-                <img
+                <Image
                   src={url}
                   alt={`Product Image ${index + 1}`}
                   className="w-full aspect-square object-cover rounded"

@@ -15,8 +15,8 @@ type ParallaxProp = {
 function FixedImageWithText(){
     return(
         <section className="h-[350vh] relative">
+            <StickySection/>
          <div className="max-w-[1376px] m-auto">
-         <StickySection/>
          <ImageParallax/>
          </div>
         </section>
@@ -26,7 +26,7 @@ function FixedImageWithText(){
 
 function StickySection(){
     return(
-        <div className="h-screen sticky top-0 px-5 m-auto flex flex-col justify-center items-center">
+        <div className="h-screen max-w-[1376px] sticky top-0 px-5 m-auto flex flex-col justify-center items-center">
            <h2 className="text-4xl text-center lg:text-8xl">Where Every Skincare Moment Counts.</h2>
            <p className="text-center mt-2 lg:max-w-screen-md lg:mt-7">
             {`At Beauty, we believe that skincare isn't just a routine; it's a journey of self-care and self-discovery. Our-Beauty curated selection of premium skincare products is designed to elevate your beauty regimen,

@@ -12,7 +12,7 @@ const Preloader = () => {
 const preloaderContainer = useRef<HTMLDivElement>(null);
 useEffect(() => {
     gsap.to(topBlock.current, {
-      clipPath: "inset(0 0 100% 0) ", // Collapse from bottom to top
+      clipPath: "inset(0 0 100% 0) ",
       duration: 10,
       delay: 1,
       ease: "power4.out",
@@ -20,14 +20,14 @@ useEffect(() => {
         gsap.to(preloaderContainer.current, {
           opacity: 0,
           duration: 0.5,
-height: 0,
-width: 0
+          height: 0,
+          width: 0
       })
     }
     })
     
     gsap.to(bottomBlock.current, {
-      clipPath: "inset(100% 0 0 0)", // Collapse from top to bottom
+      clipPath: "inset(100% 0 0 0)",
       duration: 10,
       delay: 1,
       ease: "power4.out",
@@ -51,7 +51,7 @@ width: 0
     gsap.to(middleText.current, {
       y: "-100%",
       duration: 2,
-      delay: 2, // Delay for middle text
+      delay: 2,
       ease: "power4.in",
       onComplete: () => {
         gsap.to(middleText.current, { y: "-200%", duration: 1, ease: "power4.in"});
@@ -61,7 +61,7 @@ width: 0
     gsap.to(bottomText.current, {
       y: "-100%",
       duration: 2,
-      delay: 4, // Delay for bottom text
+      delay: 4,
       ease: "power4.in",
       onComplete: () => {
         gsap.to(bottomText.current, { y: "-200%", duration: 1, ease: "power4.in"});
@@ -75,12 +75,12 @@ width: 0
       <div
         ref={topBlock}
         className="h-1/2 bg-black w-full absolute top-0"
-        style={{ clipPath: "inset(0 0 0 0)" }} // Ensure full visibility initially
+        style={{ clipPath: "inset(0 0 0 0)" }}
       ></div>
       <div
         ref={bottomBlock}
         className="h-1/2 bg-black w-full absolute bottom-0"
-         style={{ clipPath: "inset(0 0 0 0)" }} // Ensure full visibility initially
+         style={{ clipPath: "inset(0 0 0 0)" }}
       ></div>
       <div className=" relative h-[150px] flex justify-center items-center flex-col gap-10 overflow-hidden w-full">
         <h2 ref={topText} className="text-[150px] absolute top-[100%]  leading-[150px] text-center uppercase font-bold text-black opacity-0">

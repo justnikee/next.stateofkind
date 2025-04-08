@@ -1,0 +1,25 @@
+.wrapper {
+    overflow: hidden;
+    width: 100%;
+    background-color: #fff;
+    padding: 1rem 0;
+  }
+  
+  .track {
+    display: flex;
+    gap: 2rem;
+    width: max-content;
+    align-items: center;
+  }
+  
+  .image {
+    height: 60px;
+    object-fit: contain;
+    flex-shrink: 0;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+  }
+  
+  .image:hover {
+    opacity: 1;
+  }

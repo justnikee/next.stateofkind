@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useParams } from "next/navigation";
+import Image from "next/image";
 import {
   Select,
   SelectContent,
@@ -40,7 +41,6 @@ const Page = () => {
   const param = useParams();
   const productId = param.id;
 
-  // Fetch product details on component mount
   async function fetchProductsDetails() {
     const res = await fetch(`/api/product/${productId}`, {
       method: "GET",
@@ -178,7 +178,7 @@ const Page = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
             {productState.imageUrls.map((url, index) => (
               <div key={index} className="relative">
-                <img
+                <Image
                   src={url}
                   alt={`Product Image ${index + 1}`}
                   className="w-full aspect-square object-cover rounded"

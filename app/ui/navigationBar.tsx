@@ -6,6 +6,9 @@ import { RootState } from '@/store/store';
 import CartDrawer from '@/components/cart/cartDrawer';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
+
+const logo = '/homepage/State-kind.svg'
 
 
 const leftSideLinks = [
@@ -32,17 +35,17 @@ const quantityInCart = useSelector((state: RootState) => state.cart.totalQuantit
     <>
      <div className={`${isHomePage ? "bg-transparent" : "bg-black"} h-16 z-10 flex items-center sticky top-0`}>
       <div className='sm:px-8 md:px-16 flex justify-between items-center w-full m-auto'>
-      <div className='flex gap-5 w-1/3 m-auto '>
+      <div className='w-1/3 flex justify-start'>
+            <Link className='text-3xl text-white font-[SpaceMono-bold] uppercase' href={"/"}>
+            <Image width={136} height={28} src={logo} alt='logo'/>
+            </Link>
+        </div>
+      <div className='flex gap-5 w-1/3 m-auto justify-center'>
             {leftSideLinks.map((item, index) => (
                 <Link className='text-lg leading-6 text-white font-[SpaceMono-reg] uppercase' key={index} href={item.link}>
                     {item.name}
                 </Link>
             ))}
-        </div>
-        <div className='w-1/3 flex justify-center'>
-            <Link className='text-3xl text-white font-[SpaceMono-bold] uppercase' href={"/"}>
-            State of Kind
-            </Link>
         </div>
         <div className='flex gap-5 w-1/3 justify-end'>
         <Link className="text-lg leading-6 text-white font-[SpaceMono-reg] uppercase" href="/account">
