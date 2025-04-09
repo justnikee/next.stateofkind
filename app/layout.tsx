@@ -8,7 +8,7 @@ import LayoutWrapper from "./layoutWrapper"
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Ecommerce",
+  title: "SHOP - True Kind",
   description: "State of kind",
 };
 

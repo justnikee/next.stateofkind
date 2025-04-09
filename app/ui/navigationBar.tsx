@@ -29,7 +29,7 @@ const handleBagRef = (e:any) => {
   setCartOpen(prev => !prev)
 }
 
-const quantityInCart = useSelector((state: RootState) => state.cart.totalQuantity);
+const quantityInCart = useSelector((state: RootState) => state.cart?.totalQuantity);
 
   return (
     <>
@@ -40,18 +40,18 @@ const quantityInCart = useSelector((state: RootState) => state.cart.totalQuantit
             <Image width={136} height={28} src={logo} alt='logo'/>
             </Link>
         </div>
-      <div className='flex gap-5 w-1/3 m-auto justify-center'>
+      <div className='flex gap-12 w-1/3 m-auto justify-center'>
             {leftSideLinks.map((item, index) => (
-                <Link className='text-lg leading-6 text-white font-[SpaceMono-reg] uppercase' key={index} href={item.link}>
+                <Link className='text-sm font-bold text-white font-[PPMori] uppercase' key={index} href={item.link}>
                     {item.name}
                 </Link>
             ))}
         </div>
         <div className='flex gap-5 w-1/3 justify-end'>
-        <Link className="text-lg leading-6 text-white font-[SpaceMono-reg] uppercase" href="/account">
+        <Link className="text-sm text-white font-[PPMori] uppercase" href="/account">
          Account
         </Link>
-        <Link onClick={handleBagRef} className="text-lg leading-6 text-white font-[SpaceMono-reg] uppercase" href="#">
+        <Link onClick={handleBagRef} className="text-sm text-white font-[PPMori] uppercase" href="#">
         Bag<span>({quantityInCart})</span>
         </Link>
         </div>

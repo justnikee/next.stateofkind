@@ -147,6 +147,23 @@
 }
 
 
+@font-face {
+  font-family: 'PPMori';
+  src: url('.././public/Fonts/PPMori/PPMori-Regular.woff2') format('woff2');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'PPEditorialNewItalic';
+  src: url('.././public/Fonts/New-fonts/PPEditorialNew-Italic.woff') format('woff2');
+  font-weight: normal;
+}
+
+h1, h2, h3, h4, h5{
+  font-family: PPMori;
+}
+
+
 /*********** preloader text ************/
 
 .preloader_text{
@@ -187,4 +204,66 @@ div[aria-roledescription="carousel"] > div {
 
 .custom-padding{
   padding: 20vh calc(var(--gap, 8px)* 4) 100vh;
+}
+
+
+.underline-style:before{
+  background: #3b3b3b;
+  bottom: 15%;
+  content: "";
+  height: .035em;
+  left: 0;
+  position: absolute;
+  transform: scaleX(1);
+  transform-origin: left;
+  transition: transform .8s cubic-bezier(.18,.71,.11,1);
+  width: 100%;
+  -webkit-transform: scaleX(1);
+  -moz-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  -o-transform: scaleX(1);
+}
+
+@media(min-width: 767px){
+  .container {
+    margin: 0 auto;
+    max-width: 92%;
+}
+
+.section{
+  margin: 9rem 0;
+}
+}
+
+.ingrediants{
+  height: 100%;
+  left: 50%;
+  margin-bottom: 0;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  /* z-index: -1; */
+}
+
+
+.arrow-image{
+  height: 250%;
+  position: absolute;
+  right: 15%;
+  top: 0;
+  z-index: 9;
+}
+
+
+.arrow-image img{ 
+height: 100%;
+width: 100%;
+}
+
+
+.second-row{
+        align-items: flex-start;
+        justify-content: flex-end;
+        margin-top: -10%;
 }
