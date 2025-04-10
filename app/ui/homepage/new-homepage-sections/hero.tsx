@@ -3,11 +3,39 @@
 import Link from 'next/link'
 import React from 'react'
 import ReactPlayer from 'react-player'
+import { useRef } from 'react'
+
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const heroVidSrc = '/homepage/HeroVideo/hero.mp4' 
 const HeroVideo = () => {
+
+  const container = useRef<HTMLDivElement>(null)
+
+  useGSAP(() => {
+    gsap.fromTo(['.top-text', '.bottom-text'], {
+      y: 97
+    }, {
+      yPercent: -97,
+      duration: 0.4,
+      ease: "power1.inOut",
+      delay: 1,
+      stagger: 0.2
+    })
+
+    // gsap.fromTo('.bottom-text', {
+    //   y: 97
+    // }, {
+    //   yPercent: -97,
+    //   duration: 0.5,
+    //   stagger: 0.2
+    // })
+  }, { scope: container })
+
+
   return (
-    <section className='h-screen w-full'>
+    <section ref={container} className='h-screen w-full'>
             <div className='h-full'>
                 <ReactPlayer 
                 url={heroVidSrc}
@@ -35,10 +63,14 @@ const HeroVideo = () => {
                 />
             </div>
             <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white'>
-              <h1 className='font-[PPMori] text-8xl text-center text-white'>
-              <span className='font-[PPEditorialNewItalic]'>True</span> to Oneself <br/>
-              kind to <span className='font-[PPEditorialNewItalic]'>Nature</span>
+            <div className='h-[100px] overflow-hidden flex items-end' >
+            <h1 className='top-text font-[PPMori] text-8xl text-center text-white overflow-hidden'>
+            <span className='font-[PPEditorialNewItalic]'>True</span> to Oneself </h1>
+            </div>
+            <div className='h-[100px] overflow-hidden flex items-end justify-center' >
+              <h1 className='bottom-text font-[PPMori] text-8xl text-center text-white'>kind to <span className='font-[PPEditorialNewItalic]'>Nature</span>
               </h1>
+              </div>
               <p>{`Unreservedly honest products that truly work, be`}</p>
               <p>{`kind to skin and the planet – no exceptions!`}</p>
             </div>

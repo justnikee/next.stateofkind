@@ -9,10 +9,19 @@ import HeroVideo from "./ui/homepage/new-homepage-sections/hero";
 import ParallaxSection from "./ui/homepage/new-homepage-sections/parallax-section";
 // import Preloader from "./ui/preloader";
 
+import { ReactLenis, useLenis } from 'lenis/react'
+
+
+
 
 export default async function Home() {
+
+  // const lenis = useLenis(({ scroll }) => {
+  //   // called every scroll
+  // })
   return (
-   <>
+    <ReactLenis root>
+       <>
     {/* <Preloader/> */}
     {/* <Banner /> */}
     <HeroVideo/>
@@ -23,5 +32,6 @@ export default async function Home() {
     <Marquee/>
     <ProductSlider /> */}
    </>
+</ReactLenis>
   );
 }
