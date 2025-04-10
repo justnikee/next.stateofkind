@@ -23,14 +23,6 @@ const HeroVideo = () => {
       delay: 1,
       stagger: 0.2
     })
-
-    // gsap.fromTo('.bottom-text', {
-    //   y: 97
-    // }, {
-    //   yPercent: -97,
-    //   duration: 0.5,
-    //   stagger: 0.2
-    // })
   }, { scope: container })
 
 

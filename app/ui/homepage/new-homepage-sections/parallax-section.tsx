@@ -102,8 +102,8 @@ const ParallaxSection = () => {
   );
 
   return (
-    <section className="section relative main-container" ref={mainContainer}>
-      <div className="container">
+    <section className="section relative main-container " ref={mainContainer}>
+      <div className="container border-b border-[#3b3b3b]">
         <div className="relative mb-32">
           <h2 className="font-[PPMori] text-7xl font-bold mb-7 text-[#3b3b3b] uppercase">
             Clean, Conscious,
