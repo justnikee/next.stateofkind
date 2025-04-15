@@ -37,8 +37,11 @@ const ProductsShowcase = () => {
   }, { scope: '.section-scope' });
 
   return (
-    <section className='section h-screen section-scope overflow-hidden'>
-        <div className='flex h-full items-center'>
+    <section className='section section-scope '>
+        <h2 className='text-7xl text-[#3b3b3b] font-[PPMori] text-center mb-32 font-semibold uppercase'>Explore
+           <span className='font-light block font-[PPEditorialNewItalic] capitalize text-8xl'>pure potency</span>
+        </h2>
+        <div className='flex h-full items-center overflow-hidden'>
            <ImageWithSlider/>
         </div>
     </section>

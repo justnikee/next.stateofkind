@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
+import ArrowButton from './components/arrow-button'
 
 type Product = {
   id: string
@@ -30,7 +31,14 @@ const ProductSlider = () => {
   }, [])
 
   return (
-    <div className='flex-1 w-1/2 px-16 overflow-hidden'>
+    <div className='flex-1 w-1/2 mx-16 overflow-hidden'>
+      <div className='flex justify-between items-end mb-10'>
+      <h3 className='text-6xl text-[#3b3b3b]'>
+      Pure
+      <span className='font-[PPEditorialNewItalic] font-light block'>Brilliance</span>
+      </h3>
+      <ArrowButton/>
+      </div>
       <Swiper
         spaceBetween={20}
         slidesPerView={1.5}
